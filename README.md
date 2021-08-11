@@ -6,4 +6,4 @@ This project has four components:
 3. Web-viz: Visualises the dynamics of the demonstrations on a browser window
 4. Queries&models: SPARQL queries implement the agent behaviour, while the model files create a representation of the shop floor in RDF.
 
-Following the instructions from the readme of individual folders, run components 1 through 3, and then open http://localhost:4200 on a (preferably) chromium based browser.
+Following the instructions from the readme of individual folders, and then open http://localhost:4200 on a (preferably) chromium based browser.
