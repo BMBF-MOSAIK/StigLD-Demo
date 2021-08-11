@@ -1,0 +1,49 @@
+PREFIX ex:<http://example.org/>
+PREFIX pos: <http://example.org/property/position#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX st:  <http://example.org/stigld/>
+Prefix point: <http://gridPoint/>
+PREFIX stigFN: <http://www.dfki.de/func#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE{
+    ?order ex:status ?o.
+}
+INSERT {
+?order a ex:Order; ex:status "assigned"^^xsd:string.
+?taskURI  a        ex:WorkstationTask ;  ex:startTime  ?createTime;  ex:endTime ?endTime; ex:order ?order .
+?machine ex:queue ?taskURI.
+?stigmaURI a     ex:NegFeedback , st:Stigma ; st:created  ?createTime ;
+  st:decayRate  "0.0005"^^xsd:double ; st:level      "100.0"^^xsd:double .
+
+?topos st:carries ?stigmaURI.
+}
+WHERE{
+	{SELECT DISTINCT ?machine ?topos ?taskURI ?stigmaURI ?s WHERE {
+		BIND (BNODE() AS ?taskURI)  BIND (BNODE() AS ?stigmaURI)
+		?machine a ex:ProductionArtifact;	ex:located ?topos;
+		ex:outputPort [ a ex:Port; ex:located ?outputPort; ex:capacity ?capacity ] .
+
+		OPTIONAL {SELECT (COUNT(?done) as ?waiting) ?outputPort {
+			?done a ex:Product ; ex:located ?outputPort . } GROUP BY ?outputPort }
+
+		OPTIONAL {SELECT (COUNT(?sched) as ?scheduled) ?machine WHERE {
+			?machine ex:queue ?sched.	} GROUP BY ?machine }
+
+		OPTIONAL { ?topos st:carries [ a ex:NegFeedback ; st:level ?lvl] }
+		BIND(IF(bound(?lvl), ?lvl, 0) as ?l)
+		BIND(IF(bound(?waiting), ?waiting, 0) as ?w)
+		BIND(IF(bound(?scheduled), ?scheduled, 0) as ?s)
+		FILTER(?w+?s < ?capacity)
+
+		} ORDER BY ASC (?l) LIMIT 1}
+
+  { SELECT ?order ?o WHERE {
+    ?order a ex:Order ; ex:created ?created ; ex:status ?o.
+    FILTER(?o != "pickup"^^xsd:string)
+    FILTER NOT EXISTS { ?otherTask a ex:WorkstationTask ; ex:order ?order .}
+  } ORDER BY (?created) LIMIT 1}
+
+	BIND((NOW() + "PT20S"^^xsd:duration * ?s) as ?createTime)
+	BIND(?createTime + "PT20S"^^xsd:duration  as ?endTime)
+}

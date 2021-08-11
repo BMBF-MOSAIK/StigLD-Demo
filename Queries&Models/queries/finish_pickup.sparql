@@ -1,0 +1,61 @@
+prefix ex:    <http://example.org/>
+prefix st:    <http://example.org/stigld/>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix en:    <http://example.org/entities#>
+
+DELETE {
+ ?transporter ex:status ?status ; ex:located ?topos ; ex:queue ?task .
+
+ ?product a ex:Product ; ex:located ?topos ;  ex:created ?productCreateTime ; ex:Order ?order ; ex:startTime ?taskStartTime .
+ ?order a ex:Order ; ex:created ?orderCreateTime .
+
+ ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .
+
+ ?topos st:carries ?stigma .
+ ?stigma a st:Stigma , ex:TransportStigma ; st:created ?stigmaCreateTime ; st:decayRate ?decayRate ; st:level ?source_level .
+ ?all_that st:carries ?trace .
+ ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; st:level ?diffusion_level .
+
+}
+INSERT {
+  ?transporter ex:status ex:idle ; ex:located ?idlePosition .
+  ex:Makeshifttimes ex:time ?makeshiftTime .
+}
+WHERE {
+  ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .
+  ?transporter a ex:Transporter ; ex:status ?status ;
+    ex:located ?topos ; ex:idlePosition ?idlePosition ; ex:queue ?task .
+
+  ?product a ex:Product ; ex:located ?topos ; ex:created ?productCreateTime ; ex:Order ?order ; ex:startTime ?taskStartTime .
+  ?order a ex:Order ; ex:created ?orderCreateTime.
+
+  ?stigma a st:Stigma , ex:TransportStigma ; st:created ?stigmaCreateTime ; st:decayRate ?decayRate ; st:level ?source_level .
+
+  ?topos st:carries ?stigma .
+  ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; st:level ?diffusion_level .
+  ?all_that st:carries ?trace .
+  BIND(stigFN:duration_secs(?taskStartTime, now()) as ?makeshiftTime )
+  FILTER (isBlank(?trace))
+  FILTER(now() > ?endTime)
+} ;
+
+##################### CALCULATE AVERAGE STATISTICS OF MAKESHIFT TIMES
+
+DELETE {
+  ex:MakeshifttimesStatistics ex:avg ?oldAvg ; ex:median ?oldMedian ; ex:minMakeshift ?oldMin ; ex:maxMakeshift ?oldMax .
+}
+INSERT {
+  ex:MakeshifttimesStatistics ex:avg ?avg ; ex:median ?median ; ex:minMakeshift ?min ; ex:maxMakeshift ?max .
+}
+WHERE {
+
+  {SELECT (AVG(?makeshift) as ?avg) (MEDIAN(?makeshift) as ?median) (MIN(?makeshift) as ?min) (MAX(?makeshift) as?max) WHERE {
+        ex:Makeshifttimes ex:time ?makeshift .
+  }}
+
+  OPTIONAL {SELECT ?oldAvg ?oldMedian ?oldMin ?oldMax WHERE {
+    ex:MakeshifttimesStatistics ex:avg ?oldAvg ; ex:median ?oldMedian ; ex:minMakeshift ?oldMin ; ex:maxMakeshift ?oldMax .
+  }}
+
+}

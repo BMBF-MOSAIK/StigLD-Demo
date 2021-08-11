@@ -1,0 +1,22 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix ex:    <http://example.org/>
+prefix :      <http://example.org/benchmark/>
+
+CONSTRUCT {
+      :numMachines  rdf:value ?n_w .
+      :numTransporters rdf:value ?n_t .
+      :numOrders rdf:value ?n_o .
+}
+
+WHERE {
+
+  {SELECT (COUNT(?w) as ?n_w ) {
+      ?w a ex:ProductionArtifact .
+  }}
+  {SELECT (COUNT(?t) as ?n_t ) {
+      ?t a ex:Transporter .
+  }}
+  {SELECT (COUNT(?o) as ?n_o ) {
+      ?o a ex:Order .
+  }}
+}

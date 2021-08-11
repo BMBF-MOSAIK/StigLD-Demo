@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "121570c3-3b69-49f7-8714-c492339fee81",
+		"name": "StigLD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX ex:<http://example.org/>\r\nPREFIX xsd:<http://www.w3.org/2001/XMLSchema#>\r\nINSERT{?uri a ex:Order ; ex:created ?created ; ex:status \"unassigned\"^^xsd:string}\r\nWHERE{\r\n  BIND(UUID() as ?uri) BIND (NOW() as ?created)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Sends a fresh order to the StigLD Server"
+			},
+			"response": []
+		},
+		{
+			"name": "Describe All",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\n\r\nDESCRIBE ?s WHERE {\r\n    ?s ?p ?o\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/query/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"query",
+						""
+					]
+				},
+				"description": "Describes the whole Dataset"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX ex:<http://example.org/>\r\nPREFIX pos: <http://example.org/property/position#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX st:  <http://example.org/stigld/>\r\nPrefix point: <http://gridPoint/>\r\nPREFIX stigFN: <http://www.dfki.de/func#>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n\r\nDELETE{\r\n    ?order ex:status ?o.\r\n}\r\nINSERT {\r\n?order a ex:Order; ex:status \"assigned\"^^xsd:string.\r\n?taskURI  a        ex:WorkstationTask ;  ex:startTime  ?createTime;  ex:endTime ?endTime; ex:order ?order .\r\n?machine ex:queue ?taskURI.\r\n?stigmaURI a     ex:NegFeedback , st:Stigma ; st:created  ?createTime ;\r\n  st:decayRate  \"0.0005\"^^xsd:double ; st:level      \"100.0\"^^xsd:double .\r\n\r\n?topos st:carries ?stigmaURI.\r\n}\r\nWHERE{\r\n\t{SELECT DISTINCT ?machine ?topos ?taskURI ?stigmaURI ?s WHERE {\r\n\t\tBIND (BNODE() AS ?taskURI)  BIND (BNODE() AS ?stigmaURI)\r\n\t\t?machine a ex:ProductionArtifact;\tex:located ?topos;\r\n\t\tex:outputPort [ a ex:Port; ex:located ?outputPort; ex:capacity ?capacity ] .\r\n\r\n\t\tOPTIONAL {SELECT (COUNT(?done) as ?waiting) ?outputPort {\r\n\t\t\t?done a ex:Product ; ex:located ?outputPort . } GROUP BY ?outputPort }\r\n\r\n\t\tOPTIONAL {SELECT (COUNT(?sched) as ?scheduled) ?machine WHERE {\r\n\t\t\t?machine ex:queue ?sched.\t} GROUP BY ?machine }\r\n\r\n\t\tOPTIONAL { ?topos st:carries [ a ex:NegFeedback ; st:level ?lvl] }\r\n\t\tBIND(IF(bound(?lvl), ?lvl, 0) as ?l)\r\n\t\tBIND(IF(bound(?waiting), ?waiting, 0) as ?w)\r\n\t\tBIND(IF(bound(?scheduled), ?scheduled, 0) as ?s)\r\n\t\tFILTER(?w+?s < ?capacity)\r\n\r\n\t\t} ORDER BY ASC (?l) LIMIT 1}\r\n\r\n  { SELECT ?order ?o WHERE {\r\n    ?order a ex:Order ; ex:created ?created ; ex:status ?o.\r\n    FILTER(?o != \"pickup\"^^xsd:string)\r\n    FILTER NOT EXISTS { ?otherTask a ex:WorkstationTask ; ex:order ?order .}\r\n  } ORDER BY (?created) LIMIT 1}\r\n\r\n\tBIND((NOW() + \"PT10S\"^^xsd:duration * ?s) as ?createTime)\r\n\tBIND(?createTime + \"PT10S\"^^xsd:duration  as ?endTime)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Assigns the oldest order to a machine given that the machine still has production capacity"
+			},
+			"response": []
+		},
+		{
+			"name": "Perform Production",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n\r\nDELETE {\r\n    ?task ?p1 ?o .\r\n    ?s ?p2 ?task .\r\n    ?order ex:status ?status.\r\n}\r\nINSERT {\r\n    ?id a ex:Product ; ex:Order ?order;\r\n    ex:located ?target ;\r\n    ex:created ?now .\r\n    ?order ex:status \"pickup\"^^xsd:string.\r\n\r\n    ?target st:carries ?marker .\r\n    ?marker a st:Stigma, ex:TransportStigma ; st:created ?now ;\r\n      st:decayRate \"0.03\"^^xsd:double ; st:level \"100.0\"^^xsd:double .\r\n}\r\nWHERE {\r\n  BIND (NOW() as ?now)\r\n  { SELECT * WHERE {\r\n      ?machine ex:queue ?task .\r\n      { SELECT (UUID() as ?id) (UUID() as ?marker) ?task WHERE {\r\n          ?task a ex:WorkstationTask ; ex:endTime ?endTime .\r\n          FILTER(?endTime < NOW())}}\r\n  }}\r\n\r\n  {SELECT (COUNT(?done) as ?waiting) ?output WHERE {\r\n    ?output a ex:Port ; ex:located ?pos .\r\n    OPTIONAL {?done a ex:Product ; ex:located ?pos .}\r\n  } GROUP BY ?output}\r\n\r\n  ?machine a ex:ProductionArtifact ; ex:queue ?task ; ex:outputPort ?output .\r\n  ?output ex:capacity ?capacity ; ex:located ?target.\r\n\r\n  OPTIONAL { ?task ?p1 ?o . }\r\n  OPTIONAL { ?s ?p2 ?task . }\r\n\r\n  ?task ex:order ?order .\r\n  ?order ex:status ?status .\r\n\r\n  FILTER(?waiting < ?capacity)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Finishes all production tasks that are beyond end time, spawns a product for each finished task, and creates diffusion markers to call for pickup for each spawned product"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Move Tasks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n\r\nDELETE {\r\n  ?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n  ?t ex:queue ?task  ; ex:status ex:busy .\r\n  ?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .\r\n}\r\nWHERE {\r\n  SELECT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {\r\n\r\n    ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle  .\r\n    {SELECT (SAMPLE(?adj) as ?to) ?t WHERE {\r\n      ?t ex:located ?from .\r\n      {SELECT ?adj ?from WHERE {\r\n        ?from st:adjacentTo ?adj.\r\n        ?adj st:carries [ a ex:TransportStigma ; st:level ?lvl ].\r\n        FILTER NOT EXISTS {\r\n          ?from st:adjacentTo ?otherAdj.\r\n          ?otherAdj st:carries [ a ex:TransportStigma ; st:level ?otherLvl ].\r\n          FILTER(?otherLvl > ?lvl) }\r\n      }}\r\n    } GROUP BY ?t}\r\n\r\n    FILTER NOT EXISTS {\r\n      ?m ex:located ?from ; a ex:Product .\r\n    }\r\n\r\n    BIND (NOW() as?now)\r\n    BIND (?now + \"PT1M\"^^xsd:duration * (1/?speed) as ?endTime)\r\n}} ;\r\n\r\n\r\nDELETE {\r\n  ?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n  ?t ex:queue ?task  ; ex:status ex:busy .\r\n  ?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .\r\n}\r\nWHERE {\r\n  SELECT DISTINCT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {\r\n  ?from st:adjacentTo ?to.\r\n  ?to st:carries [ a ex:DiffusionTrace ; st:level ?lvl] .\r\n  ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle  .\r\n  {SELECT DISTINCT (SAMPLE(?adj) as ?to) ?t WHERE {\r\n    ?t ex:located ?from .\r\n    {SELECT DISTINCT ?adj ?from WHERE {\r\n      ?from st:adjacentTo ?adj.\r\n      ?adj st:carries [ a ex:DiffusionTrace ; st:level ?lvl ].\r\n      FILTER NOT EXISTS  {?something a ex:Artifact ; ex:located ?adj .}\r\n      FILTER NOT EXISTS {\r\n        ?from st:adjacentTo ?otherAdj.\r\n        FILTER NOT EXISTS  {?something a ex:Artifact ; ex:located ?otherAdj .}\r\n        ?otherAdj st:carries [ a ex:DiffusionTrace ; st:level ?otherLvl ].\r\n        FILTER(?otherLvl > ?lvl) }\r\n    }}\r\n  } GROUP BY ?t}\r\n\r\n  FILTER NOT EXISTS {\r\n    ?m ex:located ?from ; a ex:Product .\r\n  }\r\n  BIND (NOW() as?now)\r\n  BIND (?now + \"PT1M\"^^xsd:duration * (1/?speed) as ?endTime)\r\n}}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Creates Tasks on Transporters to move in direction of increasing level of diffusion traces"
+			},
+			"response": []
+		},
+		{
+			"name": "Move Transporters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n\r\nDELETE {\r\n  ?t ex:located ?from ; ex:status ex:busy ; ex:queue ?task .\r\n  ?task a ex:MoveTask ; ex:startTime ?start ; ex:endTime ?end ; ex:toLocation ?to .\r\n}\r\nINSERT {\r\n  ?t ex:located ?to ; ex:status ex:idle .\r\n}\r\nWHERE {\r\n  ?t a ex:Transporter ; ex:located ?from ; ex:queue ?task.\r\n\r\n  ?task a ex:MoveTask ; ex:startTime ?start ; ex:endTime ?end ; ex:toLocation ?to .\r\n\r\n  FILTER (isBlank(?task))\r\n  FILTER (NOW() > ?end )\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Moves all transporters with expired Move Tasks to their intended position"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Pickup Tasks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n\r\nDELETE {\r\n  ?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n  ?t ex:queue ?task  ; ex:status ex:busy .\r\n  ?task a ex:PickUpTask ; ex:startTime ?now ; ex:endTime ?endTime  .\r\n}\r\nWHERE {\r\n{SELECT (BNODE() as ?task) ?now ?endTime ?t ?factor WHERE {\r\n  BIND (NOW() as?now)\r\n  ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle  .\r\n  {SELECT (COUNT(?product) as ?count) ?from WHERE{\r\n    ?port ex:located ?from; a ex:Port .\r\n    ?product ex:located ?from; a ex:Product .\r\n  } GROUP BY (?from)}\r\n  BIND (?now + \"PT20S\"^^xsd:duration*(?count) as ?endTime)\r\n}}}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Creates tasks to pick up ready products to transporters idling in an output slot"
+			},
+			"response": []
+		},
+		{
+			"name": "Finish Pickup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n\r\nDELETE {\r\n ?transporter ex:status ?status ; ex:located ?topos ; ex:queue ?task .\r\n\r\n ?product a ex:Product ; ex:located ?topos ;  ex:created ?productCreateTime ; ex:Order ?order .\r\n ?order a ex:Order ; ex:created ?orderCreateTime .\r\n\r\n ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .\r\n\r\n ?topos st:carries ?stigma .\r\n ?stigma a st:Stigma , ex:TransportStigma ; st:created ?stigmaCreateTime ; st:decayRate ?decayRate ; st:level ?source_level .\r\n ?all_that st:carries ?trace .\r\n ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; st:level ?diffusion_level .\r\n\r\n}\r\nINSERT {\r\n  ?transporter ex:status ex:idle ; ex:located ?idlePosition .\r\n}\r\nWHERE {\r\n  ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .\r\n  ?transporter a ex:Transporter ; ex:status ?status ;\r\n    ex:located ?topos ; ex:idlePosition ?idlePosition ; ex:queue ?task .\r\n\r\n  ?product a ex:Product ; ex:located ?topos ; ex:created ?productCreateTime ; ex:Order ?order .\r\n  ?order a ex:Order ; ex:created ?orderCreateTime.\r\n\r\n  ?stigma a st:Stigma , ex:TransportStigma ; st:created ?stigmaCreateTime ; st:decayRate ?decayRate ; st:level ?source_level .\r\n\r\n  ?topos st:carries ?stigma .\r\n  ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; st:level ?diffusion_level .\r\n  ?all_that st:carries ?trace .\r\n\r\n  FILTER (isBlank(?trace))\r\n  FILTER(now() > ?endTime)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				},
+				"description": "Terminates pickup tasks beyond end time, removes the products from the output slot, and returns transporters to their idle positions"
+			},
+			"response": []
+		},
+		{
+			"name": "Send&assign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX ex:<http://example.org/>\r\nPREFIX pos: <http://example.org/property/position#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX st:  <http://example.org/stigld/>\r\nPrefix point: <http://gridPoint/>\r\nPREFIX stigFN: <http://www.dfki.de/func#>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nINSERT{?uri a ex:Order ; ex:created ?created ; ex:status \"unassigned\"^^xsd:string}\r\nWHERE{\r\n  BIND(UUID() as ?uri) BIND (NOW() as ?created)\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/addOrders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"addOrders",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

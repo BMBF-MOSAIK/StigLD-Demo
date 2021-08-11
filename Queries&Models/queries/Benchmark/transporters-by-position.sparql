@@ -1,0 +1,7 @@
+PREFIX ex:<http://example.org/>
+PREFIX st:    <http://example.org/stigld/>
+PREFIX pos:   <http://example.org/property/position#>
+
+SELECT ?t ?x ?y WHERE {
+  ?t a ex:Transporter ; ex:located [ a st:Topos ; pos:xPos ?x ; pos:yPos ?y ] .
+}

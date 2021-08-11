@@ -1,0 +1,626 @@
+@prefix st:    <http://www.dfki.de/asr/property#> .
+@prefix stigma: <http://www.dfki.de/asr/property/stigma#> .
+@prefix ex:    <http://example.org/> .
+@prefix pos:   <http://www.dfki.de/asr/property/position#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix topos: <http://gridPoint/> .
+
+topos:91  a                      st:Topos ;
+        st:adjacentTo            topos:92 , topos:81 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:99  a                      st:Topos ;
+        st:adjacentTo            topos:89 , topos:100 , topos:98 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:92  a                      st:Topos ;
+        st:adjacentTo            topos:91 , topos:93 , topos:82 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:89  a                      st:Topos ;
+        st:adjacentTo            topos:99 , topos:90 , topos:88 , topos:79 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:100  a                     st:Topos ;
+        st:adjacentTo            topos:99 , topos:90 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:48  a                      st:Topos ;
+        st:adjacentTo            topos:47 , topos:38 , topos:49 , topos:58 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:33  a                      st:Topos ;
+        st:adjacentTo            topos:34 , topos:23 , topos:32 , topos:43 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:4  a                       st:Topos ;
+        st:adjacentTo            topos:5 , topos:14 , topos:3 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:83  a                      st:Topos ;
+        st:adjacentTo            topos:93 , topos:84 , topos:82 , topos:73 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:7  a                       st:Topos ;
+        st:adjacentTo            topos:8 , topos:17 , topos:6 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:86  a                      st:Topos ;
+        st:adjacentTo            topos:76 , topos:85 , topos:96 , topos:87 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:42  a                      st:Topos ;
+        st:adjacentTo            topos:41 , topos:52 , topos:32 , topos:43 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:10  a                      st:Topos ;
+        st:adjacentTo            topos:20 , topos:9 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:39  a                      st:Topos ;
+        st:adjacentTo            topos:38 , topos:40 , topos:29 , topos:49 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:25  a                      st:Topos ;
+        st:adjacentTo            topos:24 , topos:15 , topos:35 , topos:26 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:67  a                      st:Topos ;
+        st:adjacentTo            topos:57 , topos:77 , topos:66 , topos:68 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:70  a                      st:Topos ;
+        st:adjacentTo            topos:60 , topos:69 , topos:80 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:56  a                      st:Topos ;
+        st:adjacentTo            topos:57 , topos:46 , topos:66 , topos:55 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:57  a                      st:Topos ;
+        st:adjacentTo            topos:67 , topos:56 , topos:47 , topos:58 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:47  a                      st:Topos ;
+        st:adjacentTo            topos:48 , topos:57 , topos:37 , topos:46 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:16  a                      st:Topos ;
+        st:adjacentTo            topos:17 , topos:15 , topos:6 , topos:26 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:60  a                      st:Topos ;
+        st:adjacentTo            topos:70 , topos:50 , topos:59 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:34  a                      st:Topos ;
+        st:adjacentTo            topos:33 , topos:24 , topos:44 , topos:35 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:77  a                      st:Topos ;
+        st:adjacentTo            topos:67 , topos:76 , topos:78 , topos:87 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:38  a                      st:Topos ;
+        st:adjacentTo            topos:48 , topos:39 , topos:37 , topos:28 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:90  a                      st:Topos ;
+        st:adjacentTo            topos:89 , topos:100 , topos:80 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:76  a                      st:Topos ;
+        st:adjacentTo            topos:86 , topos:77 , topos:66 , topos:75 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:93  a                      st:Topos ;
+        st:adjacentTo            topos:92 , topos:83 , topos:94 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:63  a                      st:Topos ;
+        st:adjacentTo            topos:62 , topos:53 , topos:64 , topos:73 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:11  a                      st:Topos ;
+        st:adjacentTo            topos:1 , topos:21 , topos:12 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:37  a                      st:Topos ;
+        st:adjacentTo            topos:47 , topos:38 , topos:27 , topos:36 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:71  a                      st:Topos ;
+        st:adjacentTo            topos:72 , topos:81 , topos:61 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+ex:transporter  a   ex:Transporter , st:Artifact ;
+        ex:eta      "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime ;
+        ex:hasTask  [ ex:eta        "2021-03-26T15:59:00.000+01:00"^^xsd:dateTime ;
+                      ex:startTime  "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime
+                    ] ;
+        ex:located  topos:34 ;
+        ex:status   ex:idle .
+
+topos:8  a                       st:Topos ;
+        st:adjacentTo            topos:7 , topos:9 , topos:18 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:46  a                      st:Topos ;
+        st:adjacentTo            topos:56 , topos:47 , topos:45 , topos:36 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:69  a                      st:Topos ;
+        st:adjacentTo            topos:70 , topos:68 , topos:59 , topos:79 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:72  a                      st:Topos ;
+        st:adjacentTo            topos:71 , topos:62 , topos:82 , topos:73 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:85  a                      st:Topos ;
+        st:adjacentTo            topos:86 , topos:84 , topos:75 , topos:95 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:17  a                      st:Topos ;
+        st:adjacentTo            topos:7 , topos:16 , topos:27 , topos:18 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:41  a                      st:Topos ;
+        st:adjacentTo            topos:42 , topos:31 , topos:51 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:24  a                      st:Topos ;
+        st:adjacentTo            topos:25 , topos:34 , topos:23 , topos:14 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:15  a                      st:Topos ;
+        st:adjacentTo            topos:25 , topos:16 , topos:5 , topos:14 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:5  a                       st:Topos ;
+        st:adjacentTo            topos:4 , topos:15 , topos:6 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:1  a                       st:Topos ;
+        st:adjacentTo            topos:11 , topos:2 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:98  a                      st:Topos ;
+        st:adjacentTo            topos:99 , topos:88 , topos:97 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:20  a                      st:Topos ;
+        st:adjacentTo            topos:10 , topos:30 , topos:19 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:50  a                      st:Topos ;
+        st:adjacentTo            topos:60 , topos:40 , topos:49 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:54  a                      st:Topos ;
+        st:adjacentTo            topos:44 , topos:53 , topos:55 , topos:64 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:27  a                      st:Topos ;
+        st:adjacentTo            topos:37 , topos:17 , topos:26 , topos:28 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:30  a                      st:Topos ;
+        st:adjacentTo            topos:20 , topos:40 , topos:29 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:23  a                      st:Topos ;
+        st:adjacentTo            topos:33 , topos:24 , topos:22 , topos:13 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:9  a                       st:Topos ;
+        st:adjacentTo            topos:10 , topos:8 , topos:19 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:81  a                      st:Topos ;
+        st:adjacentTo            topos:91 , topos:71 , topos:82 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:65  a                      st:Topos ;
+        st:adjacentTo            topos:66 , topos:75 , topos:55 , topos:64 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:44  a                      st:Topos ;
+        st:adjacentTo            topos:34 , topos:54 , topos:45 , topos:43 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:66  a                      st:Topos ;
+        st:adjacentTo            topos:67 , topos:56 , topos:76 , topos:65 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:84  a                      st:Topos ;
+        st:adjacentTo            topos:83 , topos:85 , topos:94 , topos:74 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:40  a                      st:Topos ;
+        st:adjacentTo            topos:39 , topos:50 , topos:30 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:2  a                       st:Topos ;
+        st:adjacentTo            topos:1 , topos:12 , topos:3 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:94  a                      st:Topos ;
+        st:adjacentTo            topos:93 , topos:84 , topos:95 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:6  a                       st:Topos ;
+        st:adjacentTo            topos:7 , topos:16 , topos:5 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:45  a                      st:Topos ;
+        st:adjacentTo            topos:46 , topos:44 , topos:55 , topos:35 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:14  a                      st:Topos ;
+        st:adjacentTo            topos:4 , topos:24 , topos:15 , topos:13 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:78  a                      st:Topos ;
+        st:adjacentTo            topos:77 , topos:68 , topos:88 , topos:79 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:36  a                      st:Topos ;
+        st:adjacentTo            topos:37 , topos:46 , topos:35 , topos:26 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+ex:stigma  a          ex:disturbance , st:Stigma ;
+        ex:ID         3 ;
+        ex:decayRate  "0.0005"^^xsd:double ;
+        ex:initConc   "100.0"^^xsd:double ;
+        ex:initTime   "2021-03-26T15:56:00.000+01:00"^^xsd:dateTime .
+
+topos:68  a                      st:Topos ;
+        st:adjacentTo            topos:67 , topos:69 , topos:78 , topos:58 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:62  a                      st:Topos ;
+        st:adjacentTo            topos:63 , topos:72 , topos:52 , topos:61 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:59  a                      st:Topos ;
+        st:adjacentTo            topos:60 , topos:69 , topos:49 , topos:58 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:22  a                      st:Topos ;
+        st:adjacentTo            topos:23 , topos:21 , topos:12 , topos:32 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:18  a                      st:Topos ;
+        st:adjacentTo            topos:8 , topos:17 , topos:19 , topos:28 ;
+        st:carries               ex:stigma ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:88  a                      st:Topos ;
+        st:adjacentTo            topos:89 , topos:98 , topos:78 , topos:87 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:21  a                      st:Topos ;
+        st:adjacentTo            topos:11 , topos:22 , topos:31 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:97  a                      st:Topos ;
+        st:adjacentTo            topos:98 , topos:96 , topos:87 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:53  a                      st:Topos ;
+        st:adjacentTo            topos:63 , topos:54 , topos:52 , topos:43 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:75  a                      st:Topos ;
+        st:adjacentTo            topos:76 , topos:85 , topos:65 , topos:74 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:31  a                      st:Topos ;
+        st:adjacentTo            topos:41 , topos:21 , topos:32 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:80  a                      st:Topos ;
+        st:adjacentTo            topos:70 , topos:90 , topos:79 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "9"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:55  a                      st:Topos ;
+        st:adjacentTo            topos:56 , topos:54 , topos:65 , topos:45 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:82  a                      st:Topos ;
+        st:adjacentTo            topos:92 , topos:83 , topos:72 , topos:81 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:51  a                      st:Topos ;
+        st:adjacentTo            topos:41 , topos:52 , topos:61 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:74  a                      st:Topos ;
+        st:adjacentTo            topos:84 , topos:75 , topos:64 , topos:73 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:64  a                      st:Topos ;
+        st:adjacentTo            topos:63 , topos:54 , topos:65 , topos:74 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "3"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:29  a                      st:Topos ;
+        st:adjacentTo            topos:39 , topos:30 , topos:19 , topos:28 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:79  a                      st:Topos ;
+        st:adjacentTo            topos:89 , topos:69 , topos:78 , topos:80 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:73  a                      st:Topos ;
+        st:adjacentTo            topos:83 , topos:63 , topos:72 , topos:74 ;
+        pos:xPos                 "7"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:12  a                      st:Topos ;
+        st:adjacentTo            topos:11 , topos:2 , topos:22 , topos:13 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:49  a                      st:Topos ;
+        st:adjacentTo            topos:48 , topos:39 , topos:50 , topos:59 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:95  a                      st:Topos ;
+        st:adjacentTo            topos:85 , topos:94 , topos:96 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:35  a                      st:Topos ;
+        st:adjacentTo            topos:25 , topos:34 , topos:45 , topos:36 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "4"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:96  a                      st:Topos ;
+        st:adjacentTo            topos:86 , topos:97 , topos:95 ;
+        pos:xPos                 "9"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:52  a                      st:Topos ;
+        st:adjacentTo            topos:42 , topos:62 , topos:53 , topos:51 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:61  a                      st:Topos ;
+        st:adjacentTo            topos:71 , topos:62 , topos:51 ;
+        pos:xPos                 "6"^^xsd:int ;
+        pos:yPos                 "0"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+ex:machine  a            st:Artifact ;
+        ex:located       topos:18 ;
+        st:artifactType  ex:Production .
+
+topos:58  a                      st:Topos ;
+        st:adjacentTo            topos:48 , topos:57 , topos:68 , topos:59 ;
+        pos:xPos                 "5"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:32  a                      st:Topos ;
+        st:adjacentTo            topos:33 , topos:42 , topos:22 , topos:31 ;
+        pos:xPos                 "3"^^xsd:int ;
+        pos:yPos                 "1"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:19  a                      st:Topos ;
+        st:adjacentTo            topos:20 , topos:9 , topos:18 , topos:29 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "8"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:3  a                       st:Topos ;
+        st:adjacentTo            topos:4 , topos:2 , topos:13 ;
+        pos:xPos                 "0"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:13  a                      st:Topos ;
+        st:adjacentTo            topos:23 , topos:14 , topos:12 , topos:3 ;
+        pos:xPos                 "1"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:26  a                      st:Topos ;
+        st:adjacentTo            topos:25 , topos:16 , topos:27 , topos:36 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "5"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:28  a                      st:Topos ;
+        st:adjacentTo            topos:38 , topos:27 , topos:18 , topos:29 ;
+        pos:xPos                 "2"^^xsd:int ;
+        pos:yPos                 "7"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:43  a                      st:Topos ;
+        st:adjacentTo            topos:33 , topos:42 , topos:44 , topos:53 ;
+        pos:xPos                 "4"^^xsd:int ;
+        pos:yPos                 "2"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .
+
+topos:87  a                      st:Topos ;
+        st:adjacentTo            topos:86 , topos:77 , topos:88 , topos:97 ;
+        pos:xPos                 "8"^^xsd:int ;
+        pos:yPos                 "6"^^xsd:int ;
+        stigma:hasConcentration  "0"^^xsd:int .

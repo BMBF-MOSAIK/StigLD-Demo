@@ -1,0 +1,61 @@
+PREFIX ex:<http://example.org/>
+PREFIX pos: <http://example.org/property/position#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX st:  <http://example.org/stigld/>
+PREFIX stigFN: <http://www.dfki.de/func#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+########## REMOVE OLD DIFFUSION TRACES
+
+DELETE {
+    ?existing st:carries ?ex .
+    ?ex a st:DiffusionTrace ; ?p ?o .
+}
+WHERE{
+    ?existing st:carries ?ex .
+    ?ex a st:DiffusionTrace ; ?p ?o .
+    FILTER(isBlank(?ex))
+} ;
+
+########## CALCULATE NEW DIFFUSION TRACES
+
+DELETE {
+    ?stigma st:level ?srcLevel .
+}
+INSERT {
+    ?aoe st:carries [ a st:Stigma , ex:DiffusionTrace ; st:level ?diffusion ; ex:diffusionSource ?source ] .
+    ?stigma st:level ?sourceDiffusion .
+}
+WHERE {
+
+    ?source  a st:Topos; pos:xPos ?source_x; pos:yPos ?source_y; st:carries ?stigma.
+    ?stigma a ex:TransportStigma; st:created ?then; st:decayRate ?decay ; st:level ?srcLevel .
+    ?aoe  a st:Topos;    pos:xPos ?effect_x;    pos:yPos ?effect_y.
+
+    BIND(NOW() AS ?now)
+    BIND(stigFN:duration_secs(?then, ?now) AS ?duration)
+    BIND(abs(?effect_x-?source_x) + abs(?effect_y-?source_y) AS ?dist)
+    BIND(stigFN:diffusion_1D(?dist, ?duration, ?srcLevel, ?decay) AS ?diffusion)
+    BIND(0 as ?sourceDist)
+    BIND(stigFN:diffusion_1D(?sourceDist, ?duration, ?srcLevel, ?decay) AS ?sourceDiffusion)
+    FILTER(?dist > 0 && ?dist < 4 )
+} ;
+
+########## AGGREGATE DIFFUSION TRACES FROM SAME SOURCES
+
+DELETE {
+	?topos st:carries ?old .
+	?old a st:Stigma , ex:DiffusionTrace ; st:level ?oldLevel .
+}
+INSERT {
+	?topos st:carries ?stigma .
+	?stigma a st:Stigma , ex:DiffusionTrace ; st:level ?c ; ex:diffusionSource ?source.
+}
+WHERE {
+	?topos st:carries ?old .
+	?old a st:Stigma , ex:DiffusionTrace ; st:level ?oldLevel ; ex:diffusionSource ?source .
+  FILTER(isBlank(?old))
+	{SELECT (SUM(?lvl) as ?c) (BNODE() as ?stigma) ?topos ?source WHERE {
+		?topos a st:Topos ; st:carries [a st:Stigma , ex:DiffusionTrace; st:level ?lvl ; ex:diffusionSource ?source ].
+	} GROUP BY ?topos ?source }
+}

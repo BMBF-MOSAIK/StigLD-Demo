@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "5c70438b-defc-4d98-803d-5ad503b13145",
+		"name": "Send&Assign",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX ex:<http://example.org/>\r\nPREFIX xsd:<http://www.w3.org/2001/XMLSchema#>\r\nINSERT{?uri a ex:Order ; ex:created ?created ; ex:status \"unassigned\"^^xsd:string}\r\nWHERE{\r\n  BIND(UUID() as ?uri) BIND (NOW() as ?created)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/addOrders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"addOrders",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,7 @@
+prefix ex:    <http://example.org/>
+
+ASK {
+  {SELECT ?order WHERE { ?order a  ex:Order . }}
+  UNION {SELECT ?pickup WHERE { ?pickup a ex:PickupTask . }}
+  UNION {SELECT ?work WHERE { ?work a ex:WorkstationTask  . }}
+}

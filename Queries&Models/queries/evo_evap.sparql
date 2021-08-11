@@ -1,0 +1,31 @@
+PREFIX ex:<http://example.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX st:  <http://example.org/stigld/>
+PREFIX stigFN: <http://www.dfki.de/func#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE {
+  ?stigma a ex:NegFeedback ; ?p ?o .
+  ?topos st:carries ?stigma .
+}
+  INSERT {
+  ?topos st:carries ?new .
+  ?new a st:Stigma, ex:NegFeedback ; st:level ?c ; st:created ?now ; st:decayRate ?d .
+}
+WHERE {
+  BIND(NOW() as ?now)
+  ?topos a st:Topos ; st:carries ?stigma .
+  ?stigma a ex:NegFeedback ; st:decayRate ?d ; ?p ?o .
+  FILTER (isBlank(?stigma))
+
+  {SELECT distinct ?topos (BNODE() as ?new) WHERE {
+    ?topos a st:Topos .
+    FILTER EXISTS { ?topos st:carries [ a ex:NegFeedback ] .}
+  }}
+
+  {SELECT (SUM(?c_i) as ?c) ?topos WHERE {
+    ?topos st:carries [ a ex:NegFeedback ; st:level ?lvl; st:created ?then; st:decayRate ?d ].
+    BIND(stigFN:linear_decay(?then, now(), ?d, ?lvl) as ?c_i)
+  } GROUP BY ?topos}
+}

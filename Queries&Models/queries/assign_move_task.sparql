@@ -1,0 +1,69 @@
+prefix ex:    <http://example.org/>
+prefix st:    <http://example.org/stigld/>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix en:    <http://example.org/entities#>
+
+DELETE {
+?t ex:status ex:idle .
+}
+INSERT {
+?t ex:queue ?task ; ex:status ex:busy .
+?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .
+}
+WHERE {
+SELECT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {
+
+ ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle .
+{SELECT (SAMPLE(?adj) as ?to) ?t WHERE {
+?t ex:located ?from .
+{SELECT ?adj ?from WHERE {
+?from st:adjacentTo ?adj.
+?adj st:carries [ a ex:TransportStigma ; st:level ?lvl ].
+FILTER NOT EXISTS {
+?from st:adjacentTo ?otherAdj.
+?otherAdj st:carries [ a ex:TransportStigma ; st:level ?otherLvl ].
+FILTER(?otherLvl > ?lvl) }
+} ORDER BY RAND() }
+} GROUP BY ?t}
+
+ FILTER NOT EXISTS {
+?m ex:located ?from ; a ex:Product .
+}
+
+ BIND (NOW() as?now)
+BIND (?now + "PT10S"^^xsd:duration * (1/?speed) as ?endTime)
+}} ;
+
+DELETE {
+?t ex:status ex:idle .
+}
+INSERT {
+?t ex:queue ?task ; ex:status ex:busy .
+?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .
+}
+WHERE {
+SELECT DISTINCT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {
+?from st:adjacentTo ?to.
+?to st:carries [ a ex:DiffusionTrace ; st:level ?lvl] .
+?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle .
+{SELECT DISTINCT (SAMPLE(?adj) as ?to) ?t WHERE {
+?t ex:located ?from .
+{SELECT DISTINCT ?adj ?from WHERE {
+?from st:adjacentTo ?adj.
+?adj st:carries [ a ex:DiffusionTrace ; st:level ?lvl ].
+FILTER NOT EXISTS {?something a ex:Artifact ; ex:located ?adj .}
+FILTER NOT EXISTS {
+?from st:adjacentTo ?otherAdj.
+FILTER NOT EXISTS {?something a ex:Artifact ; ex:located ?otherAdj .}
+?otherAdj st:carries [ a ex:DiffusionTrace ; st:level ?otherLvl ].
+FILTER(?otherLvl > ?lvl) }
+} ORDER BY RAND() }
+} GROUP BY ?t}
+
+ FILTER NOT EXISTS {
+?m ex:located ?from ; a ex:Product .
+}
+BIND (NOW() as?now)
+BIND (?now + "PT10S"^^xsd:duration * (1/?speed) as ?endTime)
+}}

@@ -1,0 +1,4 @@
+
+<> a st:Law , a st:LinearDecay ;
+   st:decay "0.5"^^xsd:double ;
+   st:query </decay.sparql> .

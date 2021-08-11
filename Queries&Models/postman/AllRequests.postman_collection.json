@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "a0300afc-72c3-4737-8887-f97c76cf7a35",
+		"name": "AllRequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All_Inclusive",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "prefix ex:    <http://example.org/>\r\nprefix st:    <http://example.org/stigld/>\r\nprefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\nprefix xsd:   <http://www.w3.org/2001/XMLSchema#>\r\nprefix en:    <http://example.org/entities#>\r\n######################PERFORM PRODUCTION####################################\r\nDELETE {\r\n    ?task ?p1 ?o .\r\n    ?s ?p2 ?task .\r\n    ?order ex:status ?status.\r\n}\r\nINSERT {\r\n    ?id a ex:Product ; ex:Order ?order;\r\n    ex:located ?target ;\r\n    ex:created ?now .\r\n    ?order ex:status \"pickup\"^^xsd:string.\r\n\r\n    ?target st:carries ?marker .\r\n    ?marker a st:Stigma, ex:TransportStigma ; st:created ?now ;\r\n      st:decayRate \"0.03\"^^xsd:double ; st:level \"100.0\"^^xsd:double .\r\n}\r\nWHERE {\r\n  BIND (NOW() as ?now)\r\n  { SELECT * WHERE {\r\n      ?machine ex:queue ?task .\r\n      { SELECT (UUID() as ?id) (UUID() as ?marker) ?task WHERE {\r\n          ?task a ex:WorkstationTask ; ex:endTime ?endTime .\r\n          FILTER(?endTime < NOW())}}\r\n  }}\r\n\r\n  {SELECT (COUNT(?done) as ?waiting) ?output WHERE {\r\n    ?output a ex:Port ; ex:located ?pos .\r\n    OPTIONAL {?done a ex:Product ; ex:located ?pos .}\r\n  } GROUP BY ?output}\r\n\r\n  ?machine a ex:ProductionArtifact ; ex:queue ?task ; ex:outputPort ?output .\r\n  ?output ex:capacity ?capacity ; ex:located ?target.\r\n\r\n  OPTIONAL { ?task ?p1 ?o . }\r\n  OPTIONAL { ?s ?p2 ?task . }\r\n\r\n  ?task ex:order ?order .\r\n  ?order ex:status ?status .\r\n\r\n  FILTER(?waiting < ?capacity)\r\n};\r\n##################################### PERFORM MOVE ##########################################\r\nDELETE {\r\n  ?t ex:located ?from ; ex:status ex:busy ; ex:queue ?task .\r\n  ?task a ex:MoveTask ; ex:startTime ?start ; ex:endTime ?end ; ex:toLocation ?to .\r\n}\r\nINSERT {\r\n  ?t ex:located ?finalTO ; ex:status ex:idle .\r\n}\r\nWHERE {\r\n  ?t a ex:Transporter ; ex:located ?from ; ex:queue ?task; ex:idlePosition ?idle.\r\n  ?task a ex:MoveTask ; ex:startTime ?start ; ex:endTime ?end ; ex:toLocation ?to .\r\n  OPTIONAL {?t1 a ex:Transporter; ex:located ?to}\r\n  BIND(IF(BOUND(?t1), ?from, ?to) as ?finalTO)\r\n  FILTER (isBlank(?task))\r\n  FILTER (NOW() > ?end )\r\n};\r\n##############################ASSIGN MOVE########################################\r\nDELETE {\r\n?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n?t ex:queue ?task ; ex:status ex:busy .\r\n?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .\r\n}\r\nWHERE {\r\nSELECT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {\r\n\r\n ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle .\r\n{SELECT (SAMPLE(?adj) as ?to) ?t WHERE {\r\n?t ex:located ?from .\r\n{SELECT ?adj ?from WHERE {\r\n?from st:adjacentTo ?adj.\r\n?adj st:carries [ a ex:TransportStigma ; st:level ?lvl ].\r\nFILTER NOT EXISTS {\r\n?from st:adjacentTo ?otherAdj.\r\n?otherAdj st:carries [ a ex:TransportStigma ; st:level ?otherLvl ].\r\nFILTER(?otherLvl > ?lvl) }\r\n} ORDER BY RAND() }\r\n} GROUP BY ?t}\r\n\r\n FILTER NOT EXISTS {\r\n?m ex:located ?from ; a ex:Product .\r\n}\r\n\r\n BIND (NOW() as?now)\r\nBIND (?now + \"PT10S\"^^xsd:duration * (1/?speed) as ?endTime)\r\n}} ;\r\n\r\nDELETE {\r\n?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n?t ex:queue ?task ; ex:status ex:busy .\r\n?task a ex:MoveTask ; ex:startTime ?now ; ex:endTime ?endTime ; ex:toLocation ?to .\r\n}\r\nWHERE {\r\nSELECT DISTINCT (BNODE() as ?task) ?now ?endTime ?t ?from ?to WHERE {\r\n?from st:adjacentTo ?to.\r\n?to st:carries [ a ex:DiffusionTrace ; st:level ?lvl] .\r\n?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle .\r\n{SELECT DISTINCT (SAMPLE(?adj) as ?to) ?t WHERE {\r\n?t ex:located ?from .\r\n{SELECT DISTINCT ?adj ?from WHERE {\r\n?from st:adjacentTo ?adj.\r\n?adj st:carries [ a ex:DiffusionTrace ; st:level ?lvl ].\r\nFILTER NOT EXISTS {?something a ex:Artifact ; ex:located ?adj .}\r\nFILTER NOT EXISTS {\r\n?from st:adjacentTo ?otherAdj.\r\nFILTER NOT EXISTS {?something a ex:Artifact ; ex:located ?otherAdj .}\r\n?otherAdj st:carries [ a ex:DiffusionTrace ; st:level ?otherLvl ].\r\nFILTER(?otherLvl > ?lvl) }\r\n} ORDER BY RAND() }\r\n} GROUP BY ?t}\r\n\r\n FILTER NOT EXISTS {\r\n?m ex:located ?from ; a ex:Product .\r\n}\r\nBIND (NOW() as?now)\r\nBIND (?now + \"PT10S\"^^xsd:duration * (1/?speed) as ?endTime)\r\n}};\r\n##################################### CREATE PICKUP #########################################\r\nDELETE {\r\n  ?t ex:status ex:idle .\r\n}\r\nINSERT {\r\n  ?t ex:queue ?task  ; ex:status ex:busy .\r\n  ?task a ex:PickUpTask ; ex:startTime ?now ; ex:endTime ?endTime  .\r\n}\r\nWHERE {\r\n{SELECT (BNODE() as ?task) ?now ?endTime ?t ?factor WHERE {\r\n  BIND (NOW() as?now)\r\n  ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle  .\r\n  {SELECT (COUNT(?product) as ?count) ?from WHERE{\r\n    ?port ex:located ?from; a ex:Port .\r\n    ?product ex:located ?from; a ex:Product .\r\n  } GROUP BY (?from)}\r\n  BIND (?now + \"PT5S\"^^xsd:duration*(?count) as ?endTime)\r\n}}};\r\n###################################### FINISH PICKUP #############################################\r\nDELETE {\r\n ?transporter ex:status ?status ; ex:located ?topos ; ex:queue ?task .\r\n ?product a ex:Product ; ex:located ?topos ; ?p ?x .\r\n ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .\r\n ?topos st:carries ?stigma .\r\n ?stigma a st:Stigma , ex:TransportStigma ; ?stig_p ?stig_o .\r\n ?all_that st:carries ?trace .\r\n ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; ?trace_p ?trace_o .\r\n ?order ?p_o ?o_o.\r\n}\r\nINSERT {\r\n  ?transporter ex:status ex:idle ; ex:located ?idlePosition .\r\n}\r\nWHERE {\r\n  ?task a ex:PickUpTask ; ex:endTime ?endTime ; ex:startTime ?startTime .\r\n  ?transporter a ex:Transporter ; ex:status ?status ;\r\n    ex:located ?topos ; ex:idlePosition ?idlePosition ; ex:queue ?task .\r\n\r\n  ?product a ex:Product ; ex:located ?topos ; ?p ?x ; ex:Order ?order .\r\n  ?stigma a st:Stigma , ex:TransportStigma ; ?stig_p ?stig_o .\r\n  ?topos st:carries ?stigma .\r\n  ?trace a st:Stigma , ex:DiffusionTrace ; ex:diffusionSource ?topos ; ?trace_p ?trace_o .\r\n  ?all_that st:carries ?trace .\r\n  ?order ?p_o ?o_o.\r\n  FILTER (isBlank(?trace))\r\n  FILTER(now() > ?endTime)\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"update",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

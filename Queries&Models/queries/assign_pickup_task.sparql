@@ -1,0 +1,23 @@
+prefix ex:    <http://example.org/>
+prefix st:    <http://example.org/stigld/>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix en:    <http://example.org/entities#>
+
+DELETE {
+  ?t ex:status ex:idle .
+}
+INSERT {
+  ?t ex:queue ?task  ; ex:status ex:busy .
+  ?task a ex:PickUpTask ; ex:startTime ?now ; ex:endTime ?endTime  .
+}
+WHERE {
+{SELECT (BNODE() as ?task) ?now ?endTime ?t ?factor WHERE {
+  BIND (NOW() as?now)
+  ?t a ex:Transporter ; ex:located ?from ; ex:speed ?speed ; ex:status ex:idle  .
+  {SELECT (COUNT(?product) as ?count) ?from WHERE{
+    ?port ex:located ?from; a ex:Port .
+    ?product ex:located ?from; a ex:Product .
+  } GROUP BY (?from)}
+  BIND (?now + "PT5S"^^xsd:duration*(?count) as ?endTime)
+}}}

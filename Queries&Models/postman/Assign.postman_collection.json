@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "6c9aa554-bbf2-4b1a-8aef-81b244fc88be",
+		"name": "Assign",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Assign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX ex:<http://example.org/>\r\nPREFIX pos: <http://example.org/property/position#>\r\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\nPREFIX st:  <http://example.org/stigld/>\r\nPrefix point: <http://gridPoint/>\r\nPREFIX stigFN: <http://www.dfki.de/func#>\r\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n\r\nDELETE{\r\n    ?order ex:status ?o.\r\n}\r\nINSERT {\r\n?order a ex:Order; ex:status \"assigned\"^^xsd:string.\r\n?taskURI  a        ex:WorkstationTask ;  ex:startTime  ?createTime;  ex:endTime ?endTime; ex:order ?order .\r\n?machine ex:queue ?taskURI.\r\n?stigmaURI a     ex:NegFeedback , st:Stigma ; st:created  ?createTime ;\r\n  st:decayRate  \"0.0005\"^^xsd:double ; st:level      \"100.0\"^^xsd:double .\r\n\r\n?topos st:carries ?stigmaURI.\r\n}\r\nWHERE{\r\n\t{SELECT DISTINCT ?machine ?topos ?taskURI ?stigmaURI ?s WHERE {\r\n\t\tBIND (BNODE() AS ?taskURI)  BIND (BNODE() AS ?stigmaURI)\r\n\t\t?machine a ex:ProductionArtifact;\tex:located ?topos;\r\n\t\tex:outputPort [ a ex:Port; ex:located ?outputPort; ex:capacity ?capacity ] .\r\n\r\n\t\tOPTIONAL {SELECT (COUNT(?done) as ?waiting) ?outputPort {\r\n\t\t\t?done a ex:Product ; ex:located ?outputPort . } GROUP BY ?outputPort }\r\n\r\n\t\tOPTIONAL {SELECT (COUNT(?sched) as ?scheduled) ?machine WHERE {\r\n\t\t\t?machine ex:queue ?sched.\t} GROUP BY ?machine }\r\n\r\n\t\tOPTIONAL { ?topos st:carries [ a ex:NegFeedback ; st:level ?lvl] }\r\n\t\tBIND(IF(bound(?lvl), ?lvl, 0) as ?l)\r\n\t\tBIND(IF(bound(?waiting), ?waiting, 0) as ?w)\r\n\t\tBIND(IF(bound(?scheduled), ?scheduled, 0) as ?s)\r\n\t\tFILTER(?w+?s < ?capacity)\r\n\r\n\t\t} ORDER BY ASC (?l) LIMIT 1}\r\n\r\n  { SELECT ?order ?o WHERE {\r\n    ?order a ex:Order ; ex:created ?created ; ex:status ?o.\r\n    FILTER(?o != \"pickup\"^^xsd:string)\r\n    FILTER NOT EXISTS { ?otherTask a ex:WorkstationTask ; ex:order ?order .}\r\n  } ORDER BY (?created) LIMIT 1}\r\n\r\n\tBIND((NOW() + \"PT20S\"^^xsd:duration * ?s) as ?createTime)\r\n\tBIND(?createTime + \"PT20S\"^^xsd:duration  as ?endTime)\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/sparql/addOrders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sparql",
+						"addOrders",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
