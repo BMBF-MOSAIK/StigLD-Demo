@@ -21,3 +21,7 @@ Following the instructions from the readme of individual folders, and then open 
 3. Maven 3.3.9 or higher
 4. Angular CLI 11.0.5 or higher
 5. Postman HTTP client or similar
+
+#Acknowledgements
+
+This work has been supported by the German Federal Ministry for Education and Research (BMBF) as part of the MOSAIK project (grant no. 01IS18070-C).
