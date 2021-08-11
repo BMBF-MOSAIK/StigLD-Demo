@@ -1,0 +1,621 @@
+@prefix ord:   <http://example.org/orders#> .
+@prefix st:    <http://example.org/stigld/> .
+@prefix task:  <http://example.org/tasks#> .
+@prefix ex:    <http://example.org/> .
+@prefix pos:   <http://example.org/property/position#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix en:    <http://example.org/entities#> .
+@prefix topos: <http://example.org/gridPoint/> .
+@prefix law:   <http://example.org/rules#> .
+
+ex:medium  a    st:Medium .
+
+ex:diffusionLaw  a  st:Law ;
+        st:affects  ex:medium ;
+        st:rule     law:diffusion .
+
+en:machine  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:73 ;
+        ex:outputPort  en:output .	
+
+en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:12;
+        ex:outputPort  en:output_2 .
+
+en:machine_3  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:45 ;
+        ex:outputPort  en:output_3 .
+
+en:machine_4  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:69 ;
+        ex:outputPort  en:output_4 .
+
+en:machine_5 a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:29 ;
+        ex:outputPort  en:output_5 .
+
+en:output  a         ex:Port ;
+        ex:capacity  1 ;
+        ex:located   topos:83 .
+
+en:output_2  a         ex:Port ;
+        ex:capacity  5 ;
+        ex:located   topos:13 .
+
+en:output_3  a         ex:Port ;
+        ex:capacity  3 ;
+        ex:located   topos:55 .
+
+en:output_4  a         ex:Port ;
+        ex:capacity  3 ;
+        ex:located   topos:79 .
+
+en:output_5  a         ex:Port ;
+        ex:capacity  5 ;
+        ex:located   topos:39 .
+
+en:transporter_1  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:32 ;
+        ex:located       topos:32 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
+
+en:transporter_2  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:100 ;
+        ex:located       topos:100 ;
+        ex:speed         1 ;
+        ex:status        ex:idle .
+
+en:transporter_3  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:91 ;
+        ex:located       topos:91 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
+
+
+en:transporter_4  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:17 ;
+        ex:located       topos:17 ;
+        ex:speed         1 ;
+        ex:status        ex:idle .
+
+topos:60  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:70 , topos:59 , topos:50 .
+
+topos:32  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:42 , topos:33 , topos:31 , topos:22 .
+
+topos:73  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:83 , topos:74 , topos:72 , topos:63 .
+
+topos:45  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:55 , topos:46 , topos:44 , topos:35 .
+
+topos:2  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:12 , topos:3 , topos:1 .
+
+topos:17  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:27 , topos:18 , topos:16 , topos:7 .
+
+topos:86  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:96 , topos:87 , topos:85 , topos:76 .
+
+topos:58  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:68 , topos:59 , topos:57 , topos:48 .
+
+topos:99  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:100 , topos:98 , topos:89 .
+
+topos:11  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:21 , topos:12 , topos:1 .
+
+topos:80  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:90 , topos:79 , topos:70 .
+
+topos:52  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:62 , topos:53 , topos:51 , topos:42 .
+
+topos:24  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:34 , topos:25 , topos:23 , topos:14 .
+
+topos:93  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:94 , topos:92 , topos:83 .
+
+topos:65  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:75 , topos:66 , topos:64 , topos:55 .
+
+topos:37  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:47 , topos:38 , topos:36 , topos:27 .
+
+topos:78  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:88 , topos:79 , topos:77 , topos:68 .
+
+topos:7  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:17 , topos:8 , topos:6 .
+
+topos:31  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:41 , topos:32 , topos:21 .
+
+topos:72  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:82 , topos:73 , topos:71 , topos:62 .
+
+topos:44  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:54 , topos:45 , topos:43 , topos:34 .
+
+topos:1  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:11 , topos:2 .
+
+topos:16  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:26 , topos:17 , topos:15 , topos:6 .
+
+topos:85  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:95 , topos:86 , topos:84 , topos:75 .
+
+topos:57  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:67 , topos:58 , topos:56 , topos:47 .
+
+topos:29  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:39 , topos:30 , topos:28 , topos:19 .
+
+topos:98  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:99 , topos:97 , topos:88 .
+
+topos:10  a            st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:20 , topos:9 .
+
+topos:51  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:61 , topos:52 , topos:41 .
+
+topos:23  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:33 , topos:24 , topos:22 , topos:13 .
+
+topos:92  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:93 , topos:91 , topos:82 .
+
+topos:64  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:74 , topos:65 , topos:63 , topos:54 .
+
+topos:36  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:46 , topos:37 , topos:35 , topos:26 .
+
+topos:77  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:87 , topos:78 , topos:76 , topos:67 .
+
+topos:49  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:59 , topos:50 , topos:48 , topos:39 .
+
+topos:6  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:16 , topos:7 , topos:5 .
+
+topos:30  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:40 , topos:29 , topos:20 .
+
+topos:71  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:81 , topos:72 , topos:61 .
+
+topos:43  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:53 , topos:44 , topos:42 , topos:33 .
+
+topos:15  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:25 , topos:16 , topos:14 , topos:5 .
+
+topos:84  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:94 , topos:85 , topos:83 , topos:74 .
+
+topos:56  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:66 , topos:57 , topos:55 , topos:46 .
+
+topos:28  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:38 , topos:29 , topos:27 , topos:18 .
+
+topos:97  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:98 , topos:96 , topos:87 .
+
+topos:69  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:79 , topos:70 , topos:68 , topos:59 .
+
+topos:50  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:60 , topos:49 , topos:40 .
+
+topos:22  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:32 , topos:23 , topos:21 , topos:12 .
+
+topos:91  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:92 , topos:81 .
+
+topos:100  a           st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:99 , topos:90 .
+
+topos:63  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:73 , topos:64 , topos:62 , topos:53 .
+
+topos:35  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:45 , topos:36 , topos:34 , topos:25 .
+
+topos:76  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:86 , topos:77 , topos:75 , topos:66 .
+
+topos:48  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:58 , topos:49 , topos:47 , topos:38 .
+
+topos:5  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:15 , topos:6 , topos:4 .
+
+topos:89  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:99 , topos:90 , topos:88 , topos:79 .
+
+topos:70  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:80 , topos:69 , topos:60 .
+
+topos:42  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:52 , topos:43 , topos:41 , topos:32 .
+
+topos:14  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:24 , topos:15 , topos:13 , topos:4 .
+
+topos:83  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:93 , topos:84 , topos:82 , topos:73 .
+
+topos:55  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:65 , topos:56 , topos:54 , topos:45 .
+
+topos:27  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:37 , topos:28 , topos:26 , topos:17 .
+
+topos:96  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:97 , topos:95 , topos:86 .
+
+topos:68  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:78 , topos:69 , topos:67 , topos:58 .
+
+topos:21  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:31 , topos:22 , topos:11 .
+
+topos:90  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:100 , topos:89 , topos:80 .
+
+topos:62  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:72 , topos:63 , topos:61 , topos:52 .
+
+topos:34  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:44 , topos:35 , topos:33 , topos:24 .
+
+topos:75  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:85 , topos:76 , topos:74 , topos:65 .
+
+topos:47  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:57 , topos:48 , topos:46 , topos:37 .
+
+topos:4  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:14 , topos:5 , topos:3 .
+
+topos:19  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:29 , topos:20 , topos:18 , topos:9 .
+
+topos:88  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:98 , topos:89 , topos:87 , topos:78 .
+
+topos:41  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:51 , topos:42 , topos:31 .
+
+topos:13  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:23 , topos:14 , topos:12 , topos:3 .
+
+topos:82  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:92 , topos:83 , topos:81 , topos:72 .
+
+topos:54  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:64 , topos:55 , topos:53 , topos:44 .
+
+topos:26  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:36 , topos:27 , topos:25 , topos:16 .
+
+topos:95  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:96 , topos:94 , topos:85 .
+
+topos:67  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:77 , topos:68 , topos:66 , topos:57 .
+
+topos:39  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:49 , topos:40 , topos:38 , topos:29 .
+
+topos:9  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:19 , topos:10 , topos:8 .
+
+topos:20  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:30 , topos:19 , topos:10 .
+
+topos:61  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:71 , topos:62 , topos:51 .
+
+topos:33  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:43 , topos:34 , topos:32 , topos:23 .
+
+topos:74  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:84 , topos:75 , topos:73 , topos:64 .
+
+topos:46  a            st:Topos ;
+        pos:xPos       "4"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:56 , topos:47 , topos:45 , topos:36 .
+
+topos:3  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:13 , topos:4 , topos:2 .
+
+topos:18  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:28 , topos:19 , topos:17 , topos:8 .
+
+topos:87  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "6"^^xsd:int ;
+        st:adjacentTo  topos:97 , topos:88 , topos:86 , topos:77 .
+
+topos:59  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:69 , topos:60 , topos:58 , topos:49 .
+
+topos:40  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "9"^^xsd:int ;
+        st:adjacentTo  topos:50 , topos:39 , topos:30 .
+
+topos:12  a            st:Topos ;
+        pos:xPos       "1"^^xsd:int ;
+        pos:yPos       "1"^^xsd:int ;
+        st:adjacentTo  topos:22 , topos:13 , topos:11 , topos:2 .
+
+topos:81  a            st:Topos ;
+        pos:xPos       "8"^^xsd:int ;
+        pos:yPos       "0"^^xsd:int ;
+        st:adjacentTo  topos:91 , topos:82 , topos:71 .
+
+topos:53  a            st:Topos ;
+        pos:xPos       "5"^^xsd:int ;
+        pos:yPos       "2"^^xsd:int ;
+        st:adjacentTo  topos:63 , topos:54 , topos:52 , topos:43 .
+
+topos:25  a            st:Topos ;
+        pos:xPos       "2"^^xsd:int ;
+        pos:yPos       "4"^^xsd:int ;
+        st:adjacentTo  topos:35 , topos:26 , topos:24 , topos:15 .
+
+topos:94  a            st:Topos ;
+        pos:xPos       "9"^^xsd:int ;
+        pos:yPos       "3"^^xsd:int ;
+        st:adjacentTo  topos:95 , topos:93 , topos:84 .
+
+topos:66  a            st:Topos ;
+        pos:xPos       "6"^^xsd:int ;
+        pos:yPos       "5"^^xsd:int ;
+        st:adjacentTo  topos:76 , topos:67 , topos:65 , topos:56 .
+
+topos:38  a            st:Topos ;
+        pos:xPos       "3"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:48 , topos:39 , topos:37 , topos:28 .
+
+topos:79  a            st:Topos ;
+        pos:xPos       "7"^^xsd:int ;
+        pos:yPos       "8"^^xsd:int ;
+        st:adjacentTo  topos:89 , topos:80 , topos:78 , topos:69 .
+
+topos:8  a             st:Topos ;
+        pos:xPos       "0"^^xsd:int ;
+        pos:yPos       "7"^^xsd:int ;
+        st:adjacentTo  topos:18 , topos:9 , topos:7 .
+		
+ex:ord1
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord2
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord3
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord4
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord5
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+
+ex:ord6
+rdf:type ex:Order ;
+ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord7
+#rdf:type ex:Order ;
+#ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord8
+#rdf:type ex:Order ;
+#ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord9
+#rdf:type ex:Order ;
+#ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
+#
+#ex:ord10
+#rdf:type ex:Order ;
+#ex:created "2021-07-19T14:53:09.252+02:00"^^xsd:dateTime .
