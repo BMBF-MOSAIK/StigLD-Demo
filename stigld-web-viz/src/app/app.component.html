@@ -1,0 +1,90 @@
+
+<div class="row">
+  <div class="col-md-2 col-2">
+    <figure class="image">
+      <a href="https://www.dfki.de/web/forschung/forschungsbereiche/agenten-und-simulierte-realitaet/" target="_blank" rel="noopener noreferrer" title="Deutsches Forschungszentrum für Künstliche Intelligenz">
+      <img title="Deutsches Forschungszentrum für Künstliche Intelligenz" alt="DFKI Logo" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fde%2Fthumb%2F4%2F4e%2FDFKI_Logo.svg%2F1280px-DFKI_Logo.svg.png&f=1&nofb=1" width="386" height="77"> 
+      </a>
+    </figure>
+    <div class="row" style="margin-top: 8rem;">
+      <h1 style="font-size: 20px; margin-left: 1rem; text-decoration: underline;">Cell Type Description</h1>
+      <span class=""><button type="button" style="background-color: rgb(169, 169, 169) !important;" class="btn cstm-btn">M</button><p style="margin-left: 1rem;">Machine on stand by</p></span>
+      <span class=""><button type="button" style="background-color: rgb(255, 0, 0, 0.8) !important;" class="btn cstm-btn">M</button><p style="margin-left: 1rem;">Machine in use</p></span>
+      <span class=""><button type="button" style="background-color: orange !important;" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter idle</p></span>
+      <span class=""><button type="button" style="background-color: rgb(255,242,179);" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter moving</p></span>
+      <span class=""><button type="button" style="background-color: rgb(135,206,250);" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter collecting product </p></span>
+      <span class=""><button type="button" style="background-color: rgb(85, 102, 0);" class="btn cstm-btn">O</button><p style="margin-left: 1rem;">Output Port </p></span>
+      <span class=""><button type="button" style="background-color: rgb(0, 102, 0, 0.8);" class="btn cstm-btn"></button><p style="margin-left: 1rem;">Diffusion Traces </p></span>
+      <h1 style="margin-top: 18rem; font-size: 18px; margin-left: 1rem;">
+        <a href = "http://www.example.org/" target="_blank" rel="noopener noreferrer">User Manual</a>
+      </h1>
+    </div>
+  </div>
+  <div class="col-md-8 col-8">
+    <div class="center3">
+      <h1 style=" font-family: 'Courier New', Courier, monospace; font-weight: bold; text-decoration: underline;color:red;font-size:24px;margin: 0;">StigLD Demonstration</h1>
+    </div>
+    <div class="center2">
+      <h1 style="color:rgb(0, 0, 0);font-size:24px;margin: 0;">Orders waiting for pickup: {{wait}}</h1>      
+      <h1 style="color:rgb(0, 0, 0);font-size:24px;">Orders in progress: {{order}}</h1>  
+    </div>
+    
+    <div
+      class="d-flex justify-content-center w-100 align-items-center"
+      style="height: 110vh"
+    >
+      <div class="table-responsive w-50 h-50">
+        <table class="table table-bordered">
+          <tbody>
+            <tr *ngFor="let list of dataList.topoi; let i = index">
+              <td
+                *ngFor="let subList of list; let j = index"
+                class="text-center"
+                style="width: 40px; height: 40px"
+                [style.background-color]="getRgbColor(subList)"
+              >           
+                {{ subList?.machine ? "M" : (subList?.transporter && subList?.outputPort) ? "O+T" : subList?.transporter ? "T" : subList?.outputPort ? "O" : (j)*10+i+1 }}
+                <!-- <pre>{{ subList | json }}</pre> -->
+                <!-- <pre>{{ getRgbColor(subList) }}</pre> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <pre>{{ dataList | json }}</pre> -->
+      </div>
+    </div>
+  
+    <div class="center">
+      <button class="button" (click)="orderEvent()">Send Order</button>
+    </div>
+  </div>
+  <div class="col-md-2 col-2">
+    <div class="orderTable">
+      <head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        </style>
+        </head>
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <th>OrderID</th>
+            <th>CreatedOn</th> 
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let order of dataList.orders; let i = index">
+            <td>{{order.id}}</td>
+            <td>{{order.timestamp}}</td>
+            <td>{{order.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+  </div>
+</div>
+
+
+    
+
