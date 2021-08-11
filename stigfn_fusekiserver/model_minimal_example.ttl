@@ -1,0 +1,93 @@
+@prefix ord:   <http://example.org/orders#> .
+@prefix st:    <http://example.org/stigld/> .
+@prefix ex:    <http://example.org/> .
+@prefix law:   <http://example.org/rules#> .
+@prefix task:  <http://example.org/tasks#> .
+@prefix pos:   <http://example.org/property/position#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix en:    <http://example.org/entities#> .
+@prefix topos: <http://example.org/gridPoint/> .
+
+ex:medium  a    st:Medium .
+
+ex:diffusionLaw  a  st:Law ;
+        st:affects  ex:medium ;
+        st:rule     law:diffusion .
+
+topos:25  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       4 ;
+        st:adjacentTo  topos:24 , topos:26 , topos:35 , topos:15 .
+
+topos:24  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       3 ;
+        st:adjacentTo  topos:25 , topos:34 , topos:23 , topos:14 .
+
+topos:23  a            st:Topos ;
+        pos:xPos       2 ;
+        pos:yPos       2 ;
+        st:adjacentTo  topos:24 , topos:33 , topos:22 , topos:13 .
+
+topos:5  a            st:Topos ;
+        pos:xPos       0 ;
+        pos:yPos       4 ;
+        st:adjacentTo  topos:15, topos:6, topos:4 .
+
+topos:15  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       4 ;
+        st:adjacentTo  topos:25 , topos:14 , topos:16 , topos:5 .
+
+topos:16  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       5 ;
+        st:adjacentTo  topos:26 , topos:17 , topos:15 , topos:6 .
+
+topos:12  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       1 ;
+        st:adjacentTo  topos:11 , topos:13 , topos:2 , topos:22 .
+
+topos:17  a            st:Topos ;
+        pos:xPos       1 ;
+        pos:yPos       6 ;
+        st:adjacentTo  topos:16 , topos:27 , topos:18 , topos:7 .
+
+en:machine  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:23 ;
+        ex:outputPort  en:output .
+        # Example of a WorkstationTask assiged to a Workstation
+        # ex:queue  [ a ex:WorkstationTask ;
+        #              ex:order ord:1 ;
+        #              ex:startTime "2021-04-19T15:20:00+01:00"^^xsd:dateTime;
+        #              ex:endTime "2021-04-19T15:20:00+01:00"^^xsd:dateTime ] .
+
+en:machine_2  a          ex:Artifact , ex:ProductionArtifact ;
+        ex:located     topos:12;
+        ex:outputPort  en:output_2 .
+
+en:output  a         ex:Port ;
+        ex:capacity  2 ;
+        ex:located   topos:24 .
+
+en:output_2  a         ex:Port ;
+        ex:capacity  1 ;
+        ex:located   topos:17 .
+
+
+
+en:transporter_1  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:16 ;
+        ex:located       topos:16 ;
+        ex:speed         2 ;
+        ex:status        ex:idle .
+
+en:transporter_2  a        ex:Artifact , ex:Transporter ;
+        ex:idlePosition  topos:23 ;
+        ex:located       topos:23 ;
+        ex:speed         3 ;
+        ex:status        ex:idle .
+        ## in case transporter has tasks assigned:
+        ## ex:queue task:pickUpTask , task:moveTask ;
