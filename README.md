@@ -34,7 +34,7 @@ Following the instructions from the readme of individual folders, and then open 
 
 ## 2. Use docker containers provided:
 
-Docker containers can be pulled from dockerhub. Installation of Docker is a prerequisite. Instructions can be found [here](https://docs.docker.com/desktop/). Once installed, open cmd and do the following: (heads up: large image files may take several minutes to download)
+Docker containers can be pulled from dockerhub (heads up: large image files may take several minutes to download). Installation of Docker is a prerequisite. Instructions can be found [here](https://docs.docker.com/desktop/). Once installed, open cmd and do the following: 
 1. ```docker pull melzchelli/stigld-fusekiserver:latest```
 2. ```docker pull melzchelli/stigld-agentrunner:latest```
 3. ```docker pull melzchelli/stigld-mediumserver:latest```
