@@ -11,6 +11,7 @@ The cells containing transporters are labelled with "T", and have three differen
 
 The green cells signify diffusion traces, that is, the traces that finished products emit when in the output slot. Again, the intensity of the green signifies the strength of the diffusion trace at a particular cell, being highest at the output slots. The diffusion traces do not decay linearly in-place, but diffuse and spread over the entireshop floor. This results in a diffusion gradient, with intensity of diffusion markers increasing towards a finished product. Transporters follow this gradient to pickup products from output slots.
 
+Note that the transporters start the simulation from individual _idle positions_. These are also the positions to which they jump to, after finishing the collection of products from output slots.
 
 # Setup
 There are two ways to set up the stigLD demonstration. For a quick and simple setup, we recommend that you follow option 2.
