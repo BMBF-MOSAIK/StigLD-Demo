@@ -13,7 +13,7 @@ The green cells signify diffusion traces, that is, the traces that finished prod
 
 
 # Setup
-There are two ways to set up the stigLD demonstration:
+There are two ways to set up the stigLD demonstration. For a quick and simple setup, it is recommended that you follow option 2.
 ## 1. Build from source code
 
 This project has four components:
