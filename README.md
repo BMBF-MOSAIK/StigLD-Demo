@@ -45,5 +45,7 @@ Once this is done, cd into the directory containing docker-compose.yml and run:
 docker-compose up
 ```
 
+Once all the services are running, open http://localhost:4200. There are some production orders pre-loaded for demonstration purposes. New orders can be sent using the "Send Orders" button on the visualisation page.
+
 # Acknowledgements
 This work has been supported by the German Federal Ministry for Education and Research (BMBF) as part of the MOSAIK project (grant no. 01IS18070-C).
