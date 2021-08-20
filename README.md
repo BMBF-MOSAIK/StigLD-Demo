@@ -38,7 +38,7 @@ Docker containers can be pulled from dockerhub (heads up: large image files may 
 1. ```docker pull melzchelli/stigld-fusekiserver:latest```
 2. ```docker pull melzchelli/stigld-agentrunner:latest```
 3. ```docker pull melzchelli/stigld-mediumserver:latest```
-4. ```docker pull melzchelli/stigld-visualise:latest```
+4. ```docker pull melzchelli/stigld-visualise:v2```
 
 Once this is done, cd into the directory containing docker-compose.yml and run:
 ```
