@@ -34,8 +34,16 @@ Following the instructions from the readme of individual folders, and then open 
 
 ## 2. Use docker containers provided:
 
-Docker containers are provided in the Docker folder. Follow instructions on the readme of the respective folder. 
+Docker containers can be pulled from dockerhub. Installation of Docker is a prerequisite. Instructions can be found [here](https://docs.docker.com/desktop/). Once installed, open cmd and do the following:
+1. ```docker pull melzchelli/stigld-fusekiserver:latest```
+2. ```docker pull melzchelli/stigld-agentrunner:latest```
+3. ```docker pull melzchelli/stigld-mediumserver:latest```
+4. ```docker pull melzchelli/stigld-visualise:latest```
 
+Once this is done, cd into the directory containing docker-compose.yml and run:
+```
+docker-compose up
+```
 
 # Acknowledgements
 This work has been supported by the German Federal Ministry for Education and Research (BMBF) as part of the MOSAIK project (grant no. 01IS18070-C).
