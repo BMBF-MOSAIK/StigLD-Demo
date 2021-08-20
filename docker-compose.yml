@@ -10,7 +10,7 @@ services:
         - fusekiserver
 
   visualise:
-    image: melzchelli/stigld-visualise
+    image: melzchelli/stigld-visualise:v2
     ports:
       - "4200:4200"
     depends_on:
