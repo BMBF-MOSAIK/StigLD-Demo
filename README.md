@@ -12,7 +12,9 @@ The cells containing transporters are labelled with "T", and have three differen
 The green cells signify diffusion traces, that is, the traces that finished products emit when in the output slot. Again, the intensity of the green signifies the strength of the diffusion trace at a particular cell, being highest at the output slots. The diffusion traces do not decay linearly in-place, but diffuse and spread over the entireshop floor. This results in a diffusion gradient, with intensity of diffusion markers increasing towards a finished product. Transporters follow this gradient to pickup products from output slots.
 
 
-# Components
+# Setup
+There are two ways to set up the stigLD demonstration:
+## 1. Build from source code
 
 This project has four components:
 1. The stigFN server: implements the custom SPARQL functions for evolution of Stigmata.
@@ -21,6 +23,10 @@ This project has four components:
 4. Queries&models: SPARQL queries implement the agent behaviour, while the model files create a representation of the shop floor in RDF.
 
 Following the instructions from the readme of individual folders, and then open http://localhost:4200 on a (preferably) chromium based browser.
+
+## 2. Use docker containers provided:
+
+Docker containers are provided in the Docker folder. Follow instructions on the readme of the respective folder. 
 
 # Requirements
 1. Java JDK 15
