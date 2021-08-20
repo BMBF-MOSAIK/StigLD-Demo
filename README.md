@@ -24,16 +24,17 @@ This project has four components:
 
 Following the instructions from the readme of individual folders, and then open http://localhost:4200 on a (preferably) chromium based browser.
 
-## 2. Use docker containers provided:
-
-Docker containers are provided in the Docker folder. Follow instructions on the readme of the respective folder. 
-
-# Requirements
+## Requirements
 1. Java JDK 15
 2. Any Java IDE, like Apache Netbeans or Intellij Idea
 3. Maven 3.3.9 or higher
 4. Angular CLI 11.0.5 or higher
 5. Postman HTTP client or similar
+
+
+## 2. Use docker containers provided:
+
+Docker containers are provided in the Docker folder. Follow instructions on the readme of the respective folder. 
 
 
 # Acknowledgements
