@@ -4,6 +4,13 @@ StigLD is a domain model that can be used to create a stigmergic linked system. 
 
 Production machines manufacture some finished product and place them in their output slots. Output slots have a maximum capacity, which on being filled, would need to be emptied by transporters which pick up the finished products. Only when the output slots are not filled to capacity, can a machine continue manufacturing products. The shop floor can keep receiving new orders, and the aim of the demonstration is to coordinate the fulfilment of these orders such that all orders are fulfilled with the least number of updates, least number of movements from the transporters and that all the production machines are loaded uniformly. Another important optimisation metric is that a finished product should spend as little time in the output slot as possible, to ensure a smooth and uninterrupted production process.
 
+# Behaviour Description
+The cell types and their description are given on the left hand side of the visualisation tab. The machines tab with labelled "M" can have two colours. Grey when it is idle and has not been used in the recent past, and Red when it is either currently being used, or has been used in the recent past. The intensity of the Red colour fades as time passes. This fading is driven by the linear decay of the negative feedback markers placed on machines, which inhibits the use of a busy machine if the other machines are relatively less loaded. 
+
+The cells containing transporters are labelled with "T", and have three different colours depending on what the transporter is doing at that time. Orange when idle, yellow when it is moving to some adjacent cell and blue when it is picking up finished products at output slots, labelled "O". 
+
+The green cells signify diffusion traces, that is, the traces that finished products emit when in the output slot. Again, the intensity of the green signifies the strength of the diffusion trace at a particular cell, being highest at the output slots. The diffusion traces do not decay linearly in-place, but diffuse and spread over the entireshop floor. This results in a diffusion gradient, with intensity of diffusion markers increasing towards a finished product. Transporters follow this gradient to pickup products from output slots.
+
 
 # Components
 
