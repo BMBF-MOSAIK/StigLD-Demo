@@ -12,11 +12,11 @@
       <span class=""><button type="button" style="background-color: rgb(255, 0, 0, 0.8) !important;" class="btn cstm-btn">M</button><p style="margin-left: 1rem;">Machine in use</p></span>
       <span class=""><button type="button" style="background-color: orange !important;" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter idle</p></span>
       <span class=""><button type="button" style="background-color: rgb(255,242,179);" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter moving</p></span>
-      <span class=""><button type="button" style="background-color: rgb(135,206,250);" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter collecting product </p></span>
+      <span class=""><button type="button" style="background-color: rgb(135,206,250);" class="btn cstm-btn">T</button><p style="margin-left: 1rem;">Transporter picking product </p></span>
       <span class=""><button type="button" style="background-color: rgb(85, 102, 0);" class="btn cstm-btn">O</button><p style="margin-left: 1rem;">Output Port </p></span>
       <span class=""><button type="button" style="background-color: rgb(0, 102, 0, 0.8);" class="btn cstm-btn"></button><p style="margin-left: 1rem;">Diffusion Traces </p></span>
       <h1 style="margin-top: 18rem; font-size: 18px; margin-left: 1rem;">
-        <a href = "http://www.example.org/" target="_blank" rel="noopener noreferrer">User Manual</a>
+        <a href = "https://github.com/BMBF-MOSAIK/StigLD-Demo" target="_blank" rel="noopener noreferrer">User Manual</a>
       </h1>
     </div>
   </div>
@@ -61,29 +61,54 @@
   <div class="col-md-2 col-2">
     <div class="orderTable">
       <head>
+        <title>Title of the document</title>
         <style>
-        table, th, td {
-          border: 1px solid black;
-        }
+          .tableFixHead {
+            overflow-y: auto;
+            height: 550px;
+          }
+          .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th,
+          td {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+          }
+          th {
+            background: #eee;
+          }
         </style>
-        </head>
-      <table style="width:100%">
-        <tbody>
-          <tr>
-            <th>OrderID</th>
-            <th>CreatedOn</th> 
-            <th>Status</th>
-          </tr>
-          <tr *ngFor="let order of dataList.orders; let i = index">
-            <td>{{order.id}}</td>
-            <td>{{order.timestamp}}</td>
-            <td>{{order.status}}</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-  </div>
-</div>
+      </head>
+      <body>
+        <div class="tableFixHead">
+          <table>
+            <thead>
+              <tr>
+                <th>OrderID</th>
+                <th>CreatedOn</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of dataList.orders; let i = index">
+                <td>{{order.id}}</td>
+                <td>{{order.timestamp}}</td>
+                <td>{{order.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </body>
+
+
+
+
 
 
     

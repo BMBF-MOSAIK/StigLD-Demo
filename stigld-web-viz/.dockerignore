@@ -1,0 +1,12 @@
+node_modules
+Dockerfile*
+.git
+.gitignore
+.idea
+dist
+README.md
+LICENSE
+docker-build.sh
+docker-run.sh
+docker-dev-build.sh
+docker-dev-run.sh
