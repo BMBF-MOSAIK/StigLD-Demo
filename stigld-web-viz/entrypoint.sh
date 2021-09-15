@@ -64,12 +64,12 @@ elif [ -n "$MEDIUM_SERVER" ]; then
   CFG_API_SERVER=$MEDIUM_SERVER
 fi
 
-CONFIG_FILE=/app/src/env.js
+ENV_CONFIG_FILE=${ENV_CONFIG_FILE:-/app/src/env.js}
 
 if [ -n "$CFG_API_SERVER" ]; then
   echo "MEDIUM_SERVER / API_SERVER = $CFG_API_SERVER"
-  echo "Writing configuration to $CONFIG_FILE"
-  cat > "$CONFIG_FILE" <<EOF
+  echo "Writing configuration to $ENV_CONFIG_FILE"
+  cat > "$ENV_CONFIG_FILE" <<EOF
 (function (window) {
   window.__env = window.__env || {};
 
