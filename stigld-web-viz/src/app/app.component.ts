@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EnvService } from './env.service';
 
@@ -7,8 +7,9 @@ import { EnvService } from './env.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   
   dataList: any;
   topoi: any;
@@ -16,32 +17,44 @@ export class AppComponent implements OnInit {
   body: string;
   wait: number = 0;
   order: number = 0;
-  constructor(private http: HttpClient, private env: EnvService) {
+  timeoutID: number = 0;
+  constructor(private http: HttpClient, private env: EnvService, private cd: ChangeDetectorRef) {
     this.dataList = [];
 
   }
 
   ngOnInit(): void {
     this.getData();
+/* DISABLED
     setTimeout(() => {
       window.location.reload();
     }, 5000);
-    
+*/
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.timeoutID);
   }
 
   getData(): void {
+    const that = this;
     this.http
       // .get(`https://run.mocky.io/v3/e98cb9d0-4250-4957-8c8c-5b1d94596d44`)
-      .get(this.env.apiUrl)
+      .get(this.env.apiUrl + '/json')
       .subscribe((res) => {
         this.dataList = res;
+        this.cd.markForCheck();
+        clearTimeout(this.timeoutID);
+        this.timeoutID = setTimeout(() => {
+          that.getData();
+        }, 5000);
         // console.log(this.dataList);
       });
   }
 
   orderEvent(){
 
-    this.http.post(`http://localhost:8080/sparql/addOrders`, `PREFIX ex:<http://example.org/>
+    this.http.post(this.env.apiUrl + '/update', `PREFIX ex:<http://example.org/>
     PREFIX pos: <http://example.org/property/position#>
     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
     PREFIX st:  <http://example.org/stigld/>
@@ -60,7 +73,7 @@ export class AppComponent implements OnInit {
        console.log("Hi");
     });
     console.log("Button Clicked");
-    location.reload(true);
+/*    location.reload(true); DISABLED */
   }
 
   
