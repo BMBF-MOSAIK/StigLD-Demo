@@ -26,7 +26,7 @@ public class startServer {
         ref.put("http://www.dfki.de/func#exponential_decay", exponentialDecay.class);
 
         Model model = ModelFactory.createDefaultModel();
-        model.read(new FileInputStream("onlineDemo_TestModel.ttl"), null, "TTL");
+        model.read(new FileInputStream("../onlineDemo_TestModel.ttl"), null, "TTL");
         Dataset ds = DatasetFactory.create(model);
         FusekiServer server = FusekiServer.create()
                 .port(3230)
